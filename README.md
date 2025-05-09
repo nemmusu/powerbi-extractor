@@ -1,6 +1,6 @@
 # Power BI Harvest Tool
 
-`powerbi_harvest.py` is a script for structured exploration and auditing of Power BI workspaces. It retrieves metadata, datasets, and reports, performs access control checks (ACL), and generates human-readable summaries with optional user enumeration and role visibility.
+`powerbi_harvest.py` is a script for structured exploration and auditing of Power BI workspaces. It retrieves metadata, datasets, and reports, performs access control checks, and generates human-readable summaries with optional user enumeration and role visibility.
 
 It is intended for educational or experimental purposes. The tool can be used to investigate inconsistencies in permissions, test dataset access boundaries, and collect structured information for further manual review.
 
