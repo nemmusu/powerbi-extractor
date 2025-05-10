@@ -70,7 +70,6 @@ def audit(message):
         AUDIT_LOGS.append(message)
         print(message)
 
-
 def get_report_permissions(group_id, report_id):
     url = f"{API}/groups/{group_id}/reports/{report_id}/permissions"
     return get_json(url)
@@ -95,7 +94,6 @@ def get_user_azure_groups(user_id):
     if r.status_code == 200:
         return {g["id"] for g in r.json().get("value", [])}
     return set()
-
 
 def check_embed_token(report_id, group_id=None):
     if group_id:
@@ -207,6 +205,7 @@ def export_report(group_id, report, outdir, logdir):
     log_lines.append("Status: TIMEOUT")
     write_log(logdir / f"{name}.log", log_lines)
     return {"name": name, "status": "timeout"}
+
 def extract_dax(group_id, dataset_id, outdir, name):
     query = {"queries":[{"query":"EVALUATE { 1 }"}]}
     r = SESSION.post(f"{API}/groups/{group_id}/datasets/{dataset_id}/executeQueries",
@@ -383,7 +382,6 @@ def write_summary(outdir, mapdata, user_table):
 
 def main():
     global HEADERS, ENUM_USERS, AUDIT_MODE, MY_ID, token
-
     parser = ArgumentParser()
     parser.add_argument("--token",    required=True)
     parser.add_argument("--output",   help="Custom output directory")
@@ -410,7 +408,6 @@ def main():
     if not groups or not groups.get("value"):
         print("[!] No groups returned.")
         return
-
     for g in groups["value"]:
         gid, gname = g["id"], g["name"].replace(" ","_")
         print(f"\n[=] Workspace: {gname}")
