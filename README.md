@@ -1,24 +1,24 @@
-# Power BI Harvest Tool
+# Power BI Extractor
 
-`powerbi_harvest.py` is a script for structured exploration and auditing of Power BI workspaces. It retrieves metadata, datasets, and reports, performs access control checks, and generates human-readable summaries with optional user enumeration and role visibility.
+`powerbi_extractor.py` is a script for structured exploration and auditing of Power BI environments. It retrieves metadata, datasets, and reports, performs access control checks, and generates comprehensive human-readable summaries — including optional user enumeration and role visibility.
 
-The tool can be used to investigate inconsistencies in permissions, test dataset access boundaries, and collect structured information for further manual review.
+The tool is ideal for investigating permission inconsistencies, validating dataset access boundaries, and collecting structured intelligence for further manual review.
 
 ## Features
 
 - Lists all accessible workspaces (Power BI groups).
-- Extracts reports, associated datasets, and embed token generation attempts.
+- Extracts reports, associated datasets, and attempts embed token generation.
 - Dumps DAX query output for each dataset (if accessible).
 - Performs ACL checks on reports and datasets.
-- Identifies role-based access (including RLS metadata and enforcement status).
+- Identifies role-based access (RLS metadata, enforcement status).
 - Enumerates users in each workspace (optional).
 - Maps users to workspaces and roles.
-- Generates a detailed summary.
-- Includes Microsoft Graph lookup (optional) to match group membership against ACLs.
+- Generates detailed summaries and logs.
+- Includes optional Microsoft Graph lookup for AAD group membership resolution.
 
 ## Requirements
 
-See `requirements.txt`:
+Dependencies listed in `requirements.txt`:
 
 ```
 requests
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python3 powerbi_harvest.py --token <BEARER_TOKEN> [--enum-users] [--audit] [--output OUTPUT_DIR]
+python3 powerbi_extractor.py --token <BEARER_TOKEN> [--enum-users] [--audit] [--output OUTPUT_DIR]
 ```
 
 ### Options
@@ -44,6 +44,7 @@ python3 powerbi_harvest.py --token <BEARER_TOKEN> [--enum-users] [--audit] [--ou
 - `--enum-users`: List users in each workspace and try to infer your role.
 - `--audit`: Enable access control checks and report findings.
 - `--output`: Output directory. Defaults to `output/YYYYMMDD_HHMMSS`.
+
 
 ---
 
@@ -283,3 +284,6 @@ AUDIT FINDINGS
 ## Disclaimer
 
 This tool is provided "as is", for educational and research purposes only. Do not use it against environments you do not have explicit authorization to assess.
+
+🔒 This tool is always distributed as open source Python code.  
+⚠️ Beware of any repositories or sources offering this program as a precompiled `.exe` — they are **not** official and may be malicious.
