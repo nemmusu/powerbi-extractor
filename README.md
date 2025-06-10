@@ -1,50 +1,75 @@
+
 # Power BI Extractor
 
-`powerbi_extractor.py` is a script for structured exploration and auditing of Power BI environments. It retrieves metadata, datasets, and reports, performs access control checks, and generates comprehensive human-readable summaries — including optional user enumeration and role visibility.
+`powerbi_extractor.py` is a **fully open-source auditing and exploration tool** for **Microsoft Power BI** environments.  
+Designed for **red teams**, **security auditors**, and **data analysts**, it performs deep metadata extraction, access control validation, user-role mapping, and optional DAX/report export operations — all from the command line.
 
-The tool is ideal for investigating permission inconsistencies, validating dataset access boundaries, and collecting structured intelligence for further manual review.
+[![GitHub Stars](https://img.shields.io/github/stars/nemmusu/powerbi-extractor?style=social)](https://github.com/nemmusu/powerbi-extractor/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/nemmusu/powerbi-extractor?style=social)](https://github.com/nemmusu/powerbi-extractor/forks)
+[![GitHub Issues](https://img.shields.io/github/issues/nemmusu/powerbi-extractor)](https://github.com/nemmusu/powerbi-extractor/issues)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/nemmusu/powerbi-extractor)](https://github.com/nemmusu/powerbi-extractor/commits/main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Features
+---
 
-- Lists all accessible workspaces (Power BI groups).
-- Extracts reports, associated datasets, and attempts embed token generation.
-- Dumps DAX query output for each dataset (if accessible).
-- Performs ACL checks on reports and datasets.
-- Identifies role-based access (RLS metadata, enforcement status).
-- Enumerates users in each workspace (optional).
-- Maps users to workspaces and roles.
-- Generates detailed summaries and logs.
-- Includes optional Microsoft Graph lookup for AAD group membership resolution.
+## 📌 Why Power BI Extractor?
 
-## Requirements
+Microsoft Power BI is a widely adopted business intelligence platform — yet security misconfigurations are common.  
+`powerbi_extractor.py` enables structured discovery and validation of:
 
-Dependencies listed in `requirements.txt`:
+- 🔐 Access Control Lists (ACLs)
+- 📊 Report + Dataset mapping
+- 👤 Role-Based Access Control (RBAC)
+- 📤 Export-to behavior
+- 🔎 Data exposure via DAX
+- 🧑‍💼 User enumeration and role visibility
+- 🧠 AAD Group lookups (optional via Microsoft Graph)
 
+---
+
+## 🚀 Features
+
+- ✅ List accessible workspaces
+- ✅ Extract report metadata and export tokens
+- ✅ Dump datasets and DAX output (when permitted)
+- ✅ Perform ACL and RBAC checks
+- ✅ Enumerate workspace users and roles (opt-in)
+- ✅ Map users → workspaces → permissions
+- ✅ Save audit logs, summaries, and vulnerabilities
+- ✅ Optional integration with Microsoft Graph
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/nemmusu/powerbi-extractor.git
+cd powerbi-extractor
+pip install -r requirements.txt
 ```
+
+Requirements (in `requirements.txt`):
+
+```txt
 requests
 tabulate
 pandas
 ```
 
-Install with:
+---
 
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
+## 🧪 Usage
 
 ```bash
 python3 powerbi_extractor.py --token <BEARER_TOKEN> [--enum-users] [--audit] [--output OUTPUT_DIR]
 ```
 
-### Options
+### Arguments
 
-- `--token` (required): A Power BI access token (Bearer) obtained from browser or tooling.
-- `--enum-users`: List users in each workspace and try to infer your role.
-- `--audit`: Enable access control checks and report findings.
-- `--output`: Output directory. Defaults to `output/YYYYMMDD_HHMMSS`.
-
+- `--token`: Required. A Power BI access token.
+- `--enum-users`: List users and roles for each workspace.
+- `--audit`: Trigger ACL and export token validation.
+- `--output`: Destination directory. Defaults to `output/YYYYMMDD_HHMMSS`.
 
 ---
 
@@ -267,23 +292,27 @@ AUDIT FINDINGS
 
 ---
 
-## Output Structure
+## 🗂 Output Structure
 
-- `reports/<workspace>/`: Exported report PDFs (if accessible).
-- `dax/<workspace>/`: Dataset output in JSON format.
-- `logs/<workspace>/`: Detailed logs for each report export.
-- `users.csv` / `users.json`: Workspace user listings (if enabled).
-- `summary.txt`: Human-readable summary.
-- `full_output_summary.txt`: Verbose log and finding dump.
+- `reports/<workspace>/`: Exported report PDFs (if accessible)
+- `dax/<workspace>/`: Dataset output in JSON format
+- `logs/<workspace>/`: Detailed logs for each export
+- `users.csv` / `users.json`: Workspace user listings (if enabled)
+- `summary.txt`: Human-readable summary
+- `full_output_summary.txt`: Full logs + findings
 
 ## Notes
 
 - Tokens must be valid for the Power BI REST API. Microsoft Graph access (e.g., AAD group resolution) requires additional scopes but is optional.
 - Export and DAX operations do not guarantee access — HTTP errors are logged and reported.
 
-## Disclaimer
+## ⚠️ Disclaimer
 
-This tool is provided "as is", for educational and research purposes only. Do not use it against environments you do not have explicit authorization to assess.
+This tool is released for educational and authorized assessment purposes only.  
+It is always distributed as **Python source code**.  
+**⚠️ Beware of `.exe` versions: they are unofficial and potentially malicious.**
 
-🔒 This tool is always distributed as open source Python code.  
-⚠️ Beware of any repositories or sources offering this program as a precompiled `.exe` — they are **not** official and may be malicious.
+---
+
+## 📫 Contact
+GitHub: [nemmusu/powerbi-extractor](https://github.com/nemmusu/powerbi-extractor)
